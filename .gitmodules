@@ -1,7 +1,0 @@
-[submodule "udacity/JsAndTheDOM2"]
-	path = udacity/JsAndTheDOM2
-	url = https://github.com/fiveminutes001/JsAndTheDOM.git
-[submodule "udacity/JsAndTheDOM"]
-	path = udacity/JsAndTheDOM
-	url = https://github.com/fiveminutes001/JsAndTheDOM.git
-
