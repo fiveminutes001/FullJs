@@ -1,0 +1,12 @@
+.label {
+  color: black;
+  padding: 2px;
+  line-height:30px;
+  border:1px black solid; 
+}
+
+.success {background-color: #04AA6D;} /* Green */
+.info {background-color: #2196F3;} /* Blue */
+.warning {background-color: #ff9800;} /* Orange */
+.danger {background-color: #f44336;} /* Red */
+.other {background-color: #ffff66; } /* Gray */
