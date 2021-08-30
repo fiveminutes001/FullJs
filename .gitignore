@@ -1,2 +1,4 @@
 # ignore all files in any directory named protected
 protected/
+package-lock.json
+node_modules/

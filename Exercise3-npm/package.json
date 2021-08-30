@@ -1,0 +1,14 @@
+{
+  "name": "exercise-3---npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prettier":"prettier --config .prettierrc ./**/*.js --write"
+  },
+  "author": "5M",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  }
+}
