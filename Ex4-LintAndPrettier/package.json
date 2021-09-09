@@ -4,7 +4,8 @@
   "description": "ex4",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "prettier --config .prettierrc ./**/*.js --write",
+    "lint": "eslint .eslintrc ./**/*.js --quiet"
   },
   "author": "5M",
   "license": "ISC",
