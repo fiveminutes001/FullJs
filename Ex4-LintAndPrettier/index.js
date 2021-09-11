@@ -1,6 +1,9 @@
 // # Instructions
-
-// Your goal is to set up an NPM project which will lint and prettfy the code in index.js. Configure the project, install the proper node modules, and configure eslint and prettier. You will also need to include scripts that run eslint and prettier. There are errors in the index.js file. Run the scripts and fix the errors based off the results displayed in the console.
+// Your goal is to set up an NPM project which will lint and prettfy the code in index.js.
+//Configure the project, install the proper node modules, and configure eslint and prettier.
+//You will also need to include scripts that run eslint and prettier.
+//There are errors in the index.js file.
+//Run the scripts and fix the errors based off the results displayed in the console.
 
 // Import readline module for getting input from console
 // Find more here: https://nodejs.org/api/readline.html#readline_readline
@@ -12,59 +15,7 @@ const rl = readline_1.createInterface({
   // writeable stream
   output: process.stdout
 });
-// Create questions for STDIN Input from console.
-const menuQ = () => {
-  return new Promise((resolve, reject) => {
-    try {
-      // (readable, writeable from readline interface)
-      rl.question('Your choice: ', (answer) => {
-        resolve(answer);
-      });
-    } catch (error) {
-      // eslint-disable-next-line prefer-promise-reject-errors
-      reject();
-    }
-  });
-};
-let milkQ = () => {
-  return new Promise((resolve, reject) => {
-    rl.question('How many cups of milk to add? ', (answer) => {
-      resolve(answer);
-    });
-  });
-};
 
-// User questions
-const userOptions = async (mochaObject) => {
-  let milkPicked = await milkQ();
-  let milkChoice = parseInt(milkPicked);
-  var espPicked = await espressoQ();
-  let espChoice = parseInt(espPicked);
-  // If peppermint mocha
-  if (mochaObject instanceof PeppermintMocha) {
-    let pepPicked = await peppermintQ();
-    let pepChoice = parseInt(pepPicked);
-    mochaObject.peppermintSyrup = pepChoice;
-  }
-  mochaObject.milk = milkChoice;
-  mochaObject.shot = espChoice;
-  mochaObject.prepare();
-};
-
-const espressoQ = () => {
-  return new Promise((resolve, reject) => {
-    rl.question('How many shots of espresso to add? ', (answer) => {
-      resolve(answer);
-    });
-  });
-};
-const peppermintQ = () => {
-  return new Promise((resolve, reject) => {
-    rl.question('How many shots of peppermint to add? ', (answer) => {
-      resolve(answer);
-    });
-  });
-};
 // Create parent class Mocha
 class Mocha {
   constructor() {
@@ -94,6 +45,56 @@ class DarkChocolateMocha extends Mocha {
     this.chocolateType = 'Dark';
   }
 }
+
+// Create questions for STDIN Input from console.
+const menuQ = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      // (readable, writeable from readline interface)
+      rl.question('Your choice: ', (answer) => {
+        resolve(answer);
+      });
+    } catch (error) {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject();
+    }
+  });
+};
+// display menu and return selected menu item
+const showMenu = async () => {
+  console.log(
+    'Select Mocha from menu: \n',
+    '1: Create White Chocolate Mocha \n',
+    '2: Create Dark Chocolate Mocha \n',
+    '3: Create Peppermint Mocha\n',
+    '0: Exit\n'
+  );
+  const qMenu = await menuQ();
+  return qMenu;
+};
+
+const milkQ = () => {
+  return new Promise((resolve) => {
+    rl.question('How many cups of milk to add? ', (answer) => {
+      resolve(answer);
+    });
+  });
+};
+const espressoQ = () => {
+  return new Promise((resolve) => {
+    rl.question('How many shots of espresso to add? ', (answer) => {
+      resolve(answer);
+    });
+  });
+};
+const peppermintQ = () => {
+  return new Promise((resolve) => {
+    rl.question('How many shots of peppermint to add? ', (answer) => {
+      resolve(answer);
+    });
+  });
+};
+
 // inherits from Mocha
 class PeppermintMocha extends Mocha {
   constructor() {
@@ -111,6 +112,23 @@ class PeppermintMocha extends Mocha {
   }
 }
 
+// User questions
+const userOptions = async (mochaObject) => {
+  const milkPicked = await milkQ();
+  const milkChoice = parseInt(milkPicked);
+  const espPicked = await espressoQ();
+  const espChoice = parseInt(espPicked);
+  // If peppermint mocha
+  if (mochaObject instanceof PeppermintMocha) {
+    const pepPicked = await peppermintQ();
+    const pepChoice = parseInt(pepPicked);
+    mochaObject.peppermintSyrup = pepChoice;
+  }
+  mochaObject.milk = milkChoice;
+  mochaObject.shot = espChoice;
+  mochaObject.prepare();
+};
+
 const main = () => {
   let menuChoice = 0;
   const buildMocha = async () => {
@@ -121,19 +139,21 @@ const main = () => {
         case 0: {
           break;
         }
-        case 1:
-          let whiteMochaVar = 0;
+        case 1: {
           const whiteMocha = new WhiteChocolateMocha();
           await userOptions(whiteMocha);
           break;
-        case 2:
+        }
+        case 2: {
           const darkMocha = new DarkChocolateMocha();
           await userOptions(darkMocha);
           break;
-        case 3:
+        }
+        case 3: {
           const peppermintMocha = new PeppermintMocha();
           await userOptions(peppermintMocha);
           break;
+        }
         default: {
           console.log('Option invalid, please choose from menu.');
           break;
@@ -146,16 +166,3 @@ const main = () => {
   buildMocha();
 };
 main();
-
-// display menu and return selected menu item
-const showMenu = async () => {
-  console.log(
-    'Select Mocha from menu: \n',
-    '1: Create White Chocolate Mocha \n',
-    '2: Create Dark Chocolate Mocha \n',
-    '3: Create Peppermint Mocha\n',
-    '0: Exit\n'
-  );
-  const qMenu = await menuQ();
-  return qMenu;
-};
