@@ -31,7 +31,7 @@ const cut3 = (arr : (number | string)[]) : (number | string)[] => {
   return arr;
 };
 
-export = {
+export default {
   concatArr,
   addArr,
   lgNum,
